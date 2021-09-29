@@ -1,0 +1,5 @@
+DATA:
+lista #A0
+n 5
+res 0
+aux 0
