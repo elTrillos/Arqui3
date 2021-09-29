@@ -8,7 +8,7 @@ from os import error
 
 def openfile():
     readd = []
-    fileToOpen = open("input.txt","r")
+    fileToOpen = open("p3F_1.ass","r")
     line=fileToOpen.readlines()
     for i in line:
         readd.append(i.split())
@@ -28,9 +28,9 @@ def dataParser(fileList):
         for currLine in fileList:
             #print(currLine)
             if currLine[0]=="CODE:":
-                return 
+                continue
             elif len(currLine)!=2 and currLine[0]!="DATA:" :
-                return
+                continue
             elif len(currLine)==2:
                 #print("adasdasdlkjasd")
                 if currLine[1][0]=="#":
