@@ -26,3 +26,4 @@ revisar:
   INC (lista)
   CMP A,1
   JGT siguiente
+  MOV EQUISDE

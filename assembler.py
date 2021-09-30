@@ -8,6 +8,36 @@ from os import error
 def decimalToBinary(n):
     return bin(n).replace("0b", "")
 
+def checkIfValid(varsToCheck, posibleVars):
+    
+    print(posibleVars)
+    isIn=0
+    for i in varsToCheck:
+        for k in posibleVars:
+            print(i,k)
+            if i==k:
+                isIn+=1
+                break
+                
+        if isIn==0:
+            print("invalido")
+            return 0
+        k=0
+    return 1
+
+
+
+
+def deleteStuff(listOfThings):
+    listOfThings=re.split(',',listOfThings)
+    count=0
+    for i in listOfThings:
+        i=i.replace("(","")
+        i=i.replace(")","")
+        listOfThings[count]=i
+        count+=1
+    return listOfThings
+
 def openfile():
     readd = []
     fileToOpen = open("p3F_1.ass","r")
@@ -21,8 +51,9 @@ def parser(fileList):
     nuList = []
     propList = []
     k = 0
-        
-    print(fileList[k][0])
+    #print(dataParser(fileList))
+    varsUsed = dataParser(fileList)[1]
+    #print(fileList[k][0])
     for currLain in fileList:
         if currLain[0]=="CODE:":
             k=1
@@ -30,7 +61,11 @@ def parser(fileList):
         elif currLain[0][-1]==":" and k==1:
             propList.append(currLain[0])
     #print(propList)
+    propList.append("A")
+    propList.append("B")
+    propList.append("Dir")
     k = 0
+    numOfIns=0
     for currLine in fileList:
         #print(currLine)
         if currLine[0]=="CODE:":
@@ -40,14 +75,10 @@ def parser(fileList):
             nuList.append(currLine[0])
             #print(currLine[0])
             if currLine[0]=="MOV":
-                print(currLine[1])
-                
-                currLine[1]=re.split(',',currLine[1])
-                print(currLine[1])
-                for i in currLine[1]:
-                    i=i.replace("(","")
-                    i=i.replace(")","")
-                print(currLine[1])
+                #print(currLine[1])
+                print(deleteStuff(currLine[1]))
+                print(checkIfValid(deleteStuff(currLine[1]),varsUsed))
+                #print(currLine[1])
                 continue
             elif currLine[0]=="ADD":
                 continue
@@ -99,7 +130,7 @@ def parser(fileList):
     #print(nuList)
     
 
-
+    print(fileList)
     return nuList 
 
 
@@ -107,6 +138,7 @@ def parser(fileList):
 
 def dataParser(fileList):
     dataList = {}
+    defVars= []
     k=0
     if(fileList[0][0]!="DATA:"):
         print("error")
@@ -126,9 +158,10 @@ def dataParser(fileList):
                     currLine[1]=int(currLine[1],16)
                 currLine[1] = decimalToBinary(int(currLine[1]))
                 dataList[currLine[0]]=currLine[1]
+                defVars.append(currLine[0])
                 #print(dataList)
 
-    return dataList
+    return [dataList,defVars]
 
 
 
@@ -136,6 +169,7 @@ def dataParser(fileList):
 
 fileee = openfile()
 
-print(fileee)
+#print(fileee)
+#print(dataParser(fileee))
 print(dataParser(fileee))
 print(parser(fileee))
