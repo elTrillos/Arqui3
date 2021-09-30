@@ -1,0 +1,1 @@
+len(currLine)!=2 and 
