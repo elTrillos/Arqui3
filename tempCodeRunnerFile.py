@@ -1,1 +1,1 @@
-len(currLine)!=2 and 
+                print('pog')
