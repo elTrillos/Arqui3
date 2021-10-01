@@ -18,7 +18,7 @@ def checkIfValid(varsToCheck, posibleVars):
     isIn=0
     for i in listOfVarss:
         for k in posibleVars:
-            print(i,k)
+            #print(i,k)
             if i==k:
                 isIn+=1
                 break
@@ -47,7 +47,7 @@ def deleteStuff(listOfThings):
 
 def openfile():
     readd = []
-    fileToOpen = open("p3F_1.ass","r")
+    fileToOpen = open("p3F_2i.ass","r")
     line=fileToOpen.readlines()
     for i in line:
         readd.append(i.split())
@@ -58,6 +58,7 @@ def parser(fileList):
     nuList = []
     propList = []
     varList = []
+    failList = []
     k = 0
     #print(dataParser(fileList))
     varDict = dataParser(fileList)
@@ -76,11 +77,11 @@ def parser(fileList):
     varList.append("A")
     varList.append("B")
     varList.append("Dir")
-    print("aaaaaa",propList)
+    #print("aaaaaa",propList)
     for i in propList:
         i=i.replace(":","")
         varList.append(i)
-    print("bbbbbb",varList)
+    #print("bbbbbb",varList)
     #print(varList)
     k = 0
     numOfIns=0
@@ -91,140 +92,162 @@ def parser(fileList):
             continue
         elif currLine[0][-1]!=":" and k==1:
             nuList.append(currLine[0])
-            print(currLine)
+            #print(currLine)
             if currLine[0]=="MOV":
-                print(currLine[1])
+                #print(currLine[1])
                 #print(deleteStuff(currLine[1]))
                 #print(checkIfValid(currLine[1],varList))
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="ADD":
-                print(checkIfValid(currLine[1],varList))
+                #print(checkIfValid(currLine[1],varList))
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
                 
             elif currLine[0]=="SUB":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="AND":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="OR":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="NOT":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="XOR":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="SHL":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="SHR":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="INC":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="RST":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="CMP":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="JMP":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="JEQ":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="JNE":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="JGT":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="JLT":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="JGE":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="JLE":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="JCR":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             elif currLine[0]=="JOV":
                 if 0<=checkIfValid(currLine[1],varList)[0]<=2 and checkIfValid(currLine[1],varList)[1]<=1:
                     numOfIns+=1
                 else:
+                    failList.append([currLine[0],numOfIns])
                     print(" error",numOfIns)
-                    return nuList
+                    #return nuList
             else:
-                return 0
+                failList.append([currLine[0],numOfIns])
+                print(" error",numOfIns)
         elif k==1:
             continue
             #propList.append(currLine[0])
@@ -233,8 +256,8 @@ def parser(fileList):
     #print(nuList)
     
 
-    print(fileList)
-    return numOfIns 
+    print(failList)
+    return failList
 
 
 
@@ -274,5 +297,5 @@ fileee = openfile()
 
 #print(fileee)
 #print(dataParser(fileee))
-print(dataParser(fileee))
+#print(dataParser(fileee))
 print(parser(fileee))
