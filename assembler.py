@@ -51,7 +51,7 @@ def deleteStuff(listOfThings):
 
 def openfile():
     readd = []
-    fileToOpen = open("p3F_2i.ass","r")
+    fileToOpen = open("p3F_1.ass","r")
     line=fileToOpen.readlines()
     for i in line:
         readd.append(i.split())
@@ -410,7 +410,8 @@ def parser(fileList):
     k+=1
     #print(nuList)
     
-
+    if len(failList)==0:
+        print("Todo correcto, codigo funcional")
     #print(failList)
     return failList
 
