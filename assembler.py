@@ -51,7 +51,7 @@ def deleteStuff(listOfThings):
 
 def openfile():
     readd = []
-    fileToOpen = open("p3F_1.ass","r")
+    fileToOpen = open("p3-ej_correcto.ass","r")
     line=fileToOpen.readlines()
     for i in line:
         readd.append(i.split())
@@ -354,10 +354,11 @@ def parser(fileList):
     propList = []
     varList = []
     failList = []
-    k = 0
+    k = 1  #k=0  si se esta probando con CODE:############################################ 
     #print(dataParser(fileList))
     varDict = dataParser(fileList)
     #print("asdjasdjask")
+    #print(varDict)
     for i in varDict:
         varList.append(i)
     #print(varList)
@@ -380,7 +381,7 @@ def parser(fileList):
         varList.append(i)
     #print("bbbbbb",varList)
     #print(varList)
-    k = 0
+    k = 1  #k=0  si se esta probando con CODE:############################################ 
     numOfIns=0
     #print(fileList)
     for currLine in fileList:
@@ -423,8 +424,8 @@ def dataParser(fileList):
     defVars= []
     k=0
     if(fileList[0][0]!="DATA:"):
-        print("error")
-        return 0
+        #print("error")
+        return []
     elif(fileList[0][0]=="DATA:"):
         #print("chupalo")
         for currLine in fileList:
