@@ -12,7 +12,9 @@ def checkIfValid(varsToCheck, posibleVars):
     #print(varsToCheck)
     #print("aaaaaa",posibleVars)
     cantPar = 0
-    listOfVarss,cantPar=deleteStuff(varsToCheck)
+    cannPar = 0
+    listOfVarss,cantPar,wherePar=deleteStuff(varsToCheck)
+    #print(wherePar)
     if cantPar>1:
         return -1
     #print(listOfVarss)
@@ -23,16 +25,22 @@ def checkIfValid(varsToCheck, posibleVars):
             if i==k:
                 isIn+=1
                 break
-                
+            if i[0]=="#":
+                isIn+=1
+                break
+        if wherePar==1 and i=="1":   
+            cannPar=1   
+        elif wherePar==0 and  listOfVarss[0]=="1":
+            cannPar=2  
         if isIn==0:
             #print("invalido")
-            return -1,cantPar
+            return -1,cantPar,wherePar,cannPar
         k=0
     #print(isIn,cantPar)
     if isIn<len(listOfVarss):
         #print("invalido")
-        return -1,cantPar
-    return isIn,cantPar
+        return -1,cantPar,wherePar,cannPar
+    return isIn,cantPar,wherePar,cannPar
 
 
 
@@ -41,17 +49,21 @@ def deleteStuff(listOfThings):
     countPar=listOfThings.count("(")
     listOfThings=re.split(',',listOfThings)
     count=0
+    wherePar=0
+    #print(listOfThings)
+    if listOfThings[0][0]=="(":
+        wherePar=1
     
     for i in listOfThings:
         i=i.replace("(","")
         i=i.replace(")","")
         listOfThings[count]=i
         count+=1
-    return listOfThings,countPar
+    return listOfThings,countPar,wherePar
 
 def openfile():
     readd = []
-    fileToOpen = open("p3-ej_correcto.ass","r")
+    fileToOpen = open("p3-ej_incorrecto.ass","r")
     line=fileToOpen.readlines()
     for i in line:
         readd.append(i.split())
@@ -68,6 +80,7 @@ def parserChecker(currLinea,numOfIns,varList,failLista):
         if 0<=Checker[0]<=2 and Checker[1]<=1:
             pass
             #numOfIns+=1
+        
         else:
             failLista.append([currLinea,numOfIns])
             print("Error instruccion n: ",numOfIns)
@@ -77,9 +90,11 @@ def parserChecker(currLinea,numOfIns,varList,failLista):
     elif currLinea[0]=="ADD":
         Checker=checkIfValid(currLinea[1],varList)
         #print(checkIfValid(currLine[1],varList))
-        if 0<=Checker[0]<=2 and Checker[1]<=1:
+        if Checker[0]==2 and Checker[1]<=1 and Checker[2]==0 and Checker[3]==0:
             pass
             #numOfIns+=1
+        elif Checker[0]==1 and Checker[1]<=1 and Checker[2]==1:
+            pass
         else:
             failLista.append([currLinea,numOfIns])
             print("Error instruccion n: ",numOfIns)
@@ -89,9 +104,11 @@ def parserChecker(currLinea,numOfIns,varList,failLista):
         
     elif currLinea[0]=="SUB":
         Checker=checkIfValid(currLinea[1],varList)
-        if 0<=Checker[0]<=2 and Checker[1]<=1:
+        if Checker[0]==2 and Checker[1]<=1 and Checker[2]==0 and Checker[3]==0:
             pass
             #numOfIns+=1
+        elif Checker[0]==1 and Checker[1]<=1 and Checker[2]==1:
+            pass
         else:
             failLista.append([currLinea,numOfIns])
             print("Error instruccion n: ",numOfIns)
@@ -100,9 +117,11 @@ def parserChecker(currLinea,numOfIns,varList,failLista):
             #return nuList
     elif currLinea[0]=="AND":
         Checker=checkIfValid(currLinea[1],varList)
-        if 0<=Checker[0]<=2 and Checker[1]<=1:
+        if Checker[0]==2 and Checker[1]<=1  and Checker[2]==0 and Checker[3]==0:
             pass
             #numOfIns+=1
+        elif Checker[0]==1 and Checker[1]<=1 and Checker[2]==1:
+            pass
         else:
             failLista.append([currLinea,numOfIns])
             print("Error instruccion n: ",numOfIns)
@@ -111,9 +130,11 @@ def parserChecker(currLinea,numOfIns,varList,failLista):
             #return nuList
     elif currLinea[0]=="OR":
         Checker=checkIfValid(currLinea[1],varList)
-        if 0<=Checker<=2 and Checker[1]<=1:
+        if 0<=Checker[0]==2 and Checker[1]<=1 and Checker[2]==0 and Checker[3]==0:
             pass
             #numOfIns+=1
+        elif Checker[0]==1 and Checker[1]<=1 and Checker[2]==1:
+            pass
         else:
             failLista.append([currLinea,numOfIns])
             print("Error instruccion n: ",numOfIns)
@@ -122,9 +143,11 @@ def parserChecker(currLinea,numOfIns,varList,failLista):
             #return nuList
     elif currLinea[0]=="NOT":
         Checker=checkIfValid(currLinea[1],varList)
-        if 0<=Checker[0]<=2 and Checker[1]<=1:
+        if 0<=Checker[0]==2 and Checker[1]<=1 and Checker[2]==0 and Checker[3]==0:
             pass
             #numOfIns+=1
+        elif Checker[0]==1 and Checker[1]<=1 and Checker[2]==1:
+            pass
         else:
             failLista.append([currLinea,numOfIns])
             print("Error instruccion n: ",numOfIns)
@@ -133,9 +156,11 @@ def parserChecker(currLinea,numOfIns,varList,failLista):
             #return nuList
     elif currLinea[0]=="XOR":
         Checker=checkIfValid(currLinea[1],varList)
-        if 0<=Checker[0]<=2 and Checker[1]<=1:
+        if 0<=Checker[0]==2 and Checker[1]<=1 and Checker[2]==0 and Checker[3]==0:
             pass
             #numOfIns+=1
+        elif Checker[0]==1 and Checker[1]<=1 and Checker[2]==1:
+            pass
         else:
             failLista.append([currLinea,numOfIns])
             print("Error instruccion n: ",numOfIns)
@@ -144,9 +169,9 @@ def parserChecker(currLinea,numOfIns,varList,failLista):
             #return nuList
     elif currLinea[0]=="SHL":
         Checker=checkIfValid(currLinea[1],varList)
-        if 0<=Checker[0]<=2 and Checker[1]<=1:
+        if 0<=Checker[0]==2 and Checker[1]<=1 and Checker[2]==1:
             pass
-            #numOfIns+=1
+
         else:
             failLista.append([currLinea ,numOfIns])
             print("Error instruccion n: ",numOfIns)
@@ -155,7 +180,7 @@ def parserChecker(currLinea,numOfIns,varList,failLista):
             #return nuList
     elif currLinea[0]=="SHR":
         Checker=checkIfValid(currLinea[1],varList)
-        if 0<=Checker[0]<=2 and Checker[1]<=1:
+        if 0<=Checker[0]==2 and Checker[1]<=1 and Checker[2]==1:
             pass
             #numOfIns+=1
         else:
@@ -166,7 +191,7 @@ def parserChecker(currLinea,numOfIns,varList,failLista):
             #return nuList
     elif currLinea[0]=="INC":
         Checker=checkIfValid(currLinea[1],varList)
-        if 0<=Checker[0]<=1 and Checker[1]<=1:
+        if 0<=Checker[0]<=1 and Checker[1]<=1 and Checker[2]==1:
             pass
             #numOfIns+=1
         else:
@@ -177,7 +202,7 @@ def parserChecker(currLinea,numOfIns,varList,failLista):
             #return nuList
     elif currLinea[0]=="RST":
         Checker=checkIfValid(currLinea[1],varList)
-        if 0<=Checker[0]<=1 and Checker[1]<=1:
+        if 0<=Checker[0]<=1 and Checker[1]<=1 and Checker[2]==1:
             pass
             #numOfIns+=1
         else:
@@ -188,7 +213,7 @@ def parserChecker(currLinea,numOfIns,varList,failLista):
             #return nuList
     elif currLinea[0]=="CMP":
         Checker=checkIfValid(currLinea[1],varList)
-        if 0<=Checker[0]<=2 and Checker[1]<=1:
+        if 0<=Checker[0]<=2 and Checker[1]<=1 and Checker[2]==0 and Checker[3]==0:
             pass
             #numOfIns+=1
         else:
@@ -199,6 +224,7 @@ def parserChecker(currLinea,numOfIns,varList,failLista):
             #return nuList
     elif currLinea[0]=="JMP":
         Checker=checkIfValid(currLinea[1],varList)
+        #print(Checker)
         if 0<=Checker[0]<=1 and Checker[1]<=1:
             pass
             #numOfIns+=1
